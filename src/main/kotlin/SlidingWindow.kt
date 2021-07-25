@@ -201,4 +201,36 @@ object SlidingWindow {
         }
         return false
     }
+
+    fun stringAnagrams(str: String, pattern: String): List<Int> {
+        var windowStart = 0
+        var matched = 0
+        val patternFreqMap = HashMap<Char, Int>()
+        val resultIndices = mutableListOf<Int>()
+
+        for (ch in pattern) patternFreqMap[ch] = patternFreqMap.getOrDefault(ch, 0) + 1
+
+        for (windowEnd in str.indices) {
+            val rightChar = str[windowEnd]
+
+            if (patternFreqMap.contains(rightChar)) {
+                patternFreqMap[rightChar] = patternFreqMap[rightChar]!! - 1
+                if (patternFreqMap[rightChar] == 0) matched++
+            }
+
+            if (matched == patternFreqMap.size) resultIndices.add(windowStart)
+
+            if (windowEnd >= pattern.length - 1) {
+                val leftChar = str[windowStart++]
+                if (patternFreqMap.contains(leftChar)) {
+                    if (patternFreqMap[leftChar] == 0) matched--
+
+                    patternFreqMap[leftChar] = patternFreqMap[leftChar]!! + 1
+                }
+            }
+        }
+        return resultIndices
+    }
+
+
 }

@@ -5,6 +5,7 @@ fun main() {
 //    println(SlidingWindow.stringPermutation("bcdxabcdy", "bcdyabcdx"))
 //    println(SlidingWindow.stringPermutation("aaacb", "abc"))
 
-    println(SlidingWindow.longestSubstringWithSameLetterAfterReplacement("aabccbb", 2))
+    println(SlidingWindow.stringAnagrams("ppqp", "pq"))
+    println(SlidingWindow.stringAnagrams("abbcabc", "abc"))
 
 }
