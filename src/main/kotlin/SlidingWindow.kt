@@ -75,22 +75,6 @@ object SlidingWindow {
         return maxLength
     }
 
-    fun longestUniqueSubString(str: String): Int {
-        var windowStart = 0
-        var maxLength = 0
-        val charFrequencyMap = HashMap<Char, Int>()
-        for (windowEnd in str.indices) {
-            if (charFrequencyMap.contains(str[windowEnd])) {
-                windowStart = windowStart.coerceAtLeast(charFrequencyMap[str[windowEnd]]!! + 1)
-            }
-
-            charFrequencyMap[str[windowEnd]] = windowEnd
-            maxLength = maxLength.coerceAtLeast(windowEnd - windowStart + 1)
-        }
-
-        return maxLength
-    }
-
     fun maxFruitCountOf2Types(arr: CharArray): Int {
         var windowStart = 0
         var maxLength = 0
@@ -111,16 +95,43 @@ object SlidingWindow {
         return maxLength
     }
 
+    fun longestUniqueSubString(str: String): Int {
+        var windowStart = 0
+        var maxLength = 0
+        val charFrequencyMap = HashMap<Char, Int>()
+        // try to extend the range [windowStart, windowEnd]
+        for (windowEnd in str.indices) {
+            // if the map already contains str[windowEnd], shrink the window from the beginning so that
+            // we have only one occurrence of str[windowEnd]
+            if (charFrequencyMap.contains(str[windowEnd])) {
+                // this is tricky; in the current window, we will not have any str[windowEnd] after its previous index
+                // and if 'windowStart' is already ahead of the last index of str[windowEnd], we'll keep 'windowStart'
+                windowStart = windowStart.coerceAtLeast(charFrequencyMap[str[windowEnd]]!! + 1)
+            }
+
+            charFrequencyMap[str[windowEnd]] = windowEnd
+            maxLength = maxLength.coerceAtLeast(windowEnd - windowStart + 1)
+        }
+
+        return maxLength
+    }
+
     fun longestSubstringWithSameLetterAfterReplacement(str: String, k: Int): Int {
         var windowStart = 0
         var maxLength = 0
         var maxRepeatCount = 0
         val letterFreqMap = HashMap<Char, Int>()
+        // try to extend the range [windowStart, windowEnd]
         for (windowEnd in str.indices) {
             val rightChar = str[windowEnd]
             letterFreqMap[rightChar] = letterFreqMap.getOrDefault(rightChar, 0) + 1
             maxRepeatCount = maxRepeatCount.coerceAtLeast(letterFreqMap[rightChar]!!)
 
+            // current window size is from windowStart to windowEnd, overall we have a letter which is
+            // repeating 'maxRepeatLetterCount' times, this means we can have a window which has one letter
+            // repeating 'maxRepeatLetterCount' times and the remaining letters we should replace.
+            // if the remaining letters are more than 'k', it is the time to shrink the window as we
+            // are not allowed to replace more than 'k' letters
             if (windowEnd - windowStart + 1 - maxRepeatCount > k) {
                 val leftChar = str[windowStart]
                 letterFreqMap[leftChar] = letterFreqMap[leftChar]!! - 1
@@ -136,10 +147,17 @@ object SlidingWindow {
         var windowStart = 0
         var maxLength = 0
         var maxRepeatCount = 0
+        // try to extend the range [windowStart, windowEnd]
         for (windowEnd in arr.indices) {
             if (arr[windowEnd] == 1) {
                 maxRepeatCount++
             }
+
+            // current window size is from windowStart to windowEnd, overall we have a maximum of 1s
+            // repeating a maximum of 'maxOnesCount' times, this means that we can have a window with
+            // 'maxOnesCount' 1s and the remaining are 0s which should replace with 1s.
+            // now, if the remaining 0s are more than 'k', it is the time to shrink the window as we
+            // are not allowed to replace more than 'k' Os
             if (windowEnd - windowStart + 1 - maxRepeatCount > k) {
                 if (arr[windowStart] == 1) {
                     maxRepeatCount--
@@ -158,19 +176,25 @@ object SlidingWindow {
 
         for (s in pattern) patternFreqMap[s] = patternFreqMap.getOrDefault(s, 0) + 1
 
+        // our goal is to match all the characters from the 'charFrequencyMap' with the current window
+        // try to extend the range [windowStart, windowEnd]
         for (windowEnd in str.indices) {
             val rightChar = str[windowEnd]
             if (patternFreqMap.contains(rightChar)) {
+                // decrement the frequency of the matched character
                 patternFreqMap[rightChar] = patternFreqMap[rightChar]!! - 1
-                if (patternFreqMap[rightChar] == 0) matched++
+                if (patternFreqMap[rightChar] == 0) matched++   // character is completely matched
             }
 
             if (matched == patternFreqMap.size) return true
 
             if (windowEnd >= pattern.length - 1) {
+                // shrink the window by one character
                 val leftChar = str[windowStart++]
                 if (patternFreqMap.contains(leftChar)) {
+                    // before putting the character back, decrement the matched count
                     if (patternFreqMap[leftChar] == 0) matched--
+                    // put the character back for matching
                     patternFreqMap[leftChar] = patternFreqMap[leftChar]!! + 1
                 }
             }
