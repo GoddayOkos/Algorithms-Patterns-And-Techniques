@@ -13,10 +13,13 @@ fun main() {
   //  println(SlidingWindow.wordConcatenation("catcatfoxfox", arrayOf("cat", "fox")))
 //    println(isDivisible(2))
 
-    println(TwoPointers.pairWithTargetSum(intArrayOf(1, 2, 3, 4, 6), 50).toList())
-    println(TwoPointers.pairWithTargetSum(intArrayOf(2, 5, 9, 11), 11).toList())
-    println(TwoPointers.pairWithTargetSumUsingHashMap(intArrayOf(1, 2, 3, 4, 6), 50).toList())
-    println(TwoPointers.pairWithTargetSumUsingHashMap(intArrayOf(2, 5, 9, 11), 11).toList())
+//    println(TwoPointers.pairWithTargetSum(intArrayOf(1, 2, 3, 4, 6), 50).toList())
+//    println(TwoPointers.pairWithTargetSum(intArrayOf(2, 5, 9, 11), 11).toList())
+//    println(TwoPointers.pairWithTargetSumUsingHashMap(intArrayOf(1, 2, 3, 4, 6), 50).toList())
+//    println(TwoPointers.pairWithTargetSumUsingHashMap(intArrayOf(2, 5, 9, 11), 11).toList())
+
+    println(TwoPointers.removeDuplicates(intArrayOf(2, 3, 3, 3, 6, 9, 9)))
+    println(TwoPointers.removeDuplicates(intArrayOf(2, 2, 2, 11)))
 }
 
 
