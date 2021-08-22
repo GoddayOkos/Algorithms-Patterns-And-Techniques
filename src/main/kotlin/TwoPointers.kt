@@ -48,4 +48,17 @@ object TwoPointers {
         }
         return nextNonDuplicate
     }
+
+    // Remove elements which == key from the arr and return the size of the resulting arr.
+    fun removeElement(arr: IntArray, key: Int): Int {
+        var nextElement = 0
+        for (i in arr.indices) {
+            if (arr[i] != key) {
+                arr[nextElement] = arr[i]
+                nextElement++
+            }
+        }
+        println(arr.toList())
+        return nextElement
+    }
 }

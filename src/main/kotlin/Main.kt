@@ -18,8 +18,10 @@ fun main() {
 //    println(TwoPointers.pairWithTargetSumUsingHashMap(intArrayOf(1, 2, 3, 4, 6), 50).toList())
 //    println(TwoPointers.pairWithTargetSumUsingHashMap(intArrayOf(2, 5, 9, 11), 11).toList())
 
-    println(TwoPointers.removeDuplicates(intArrayOf(2, 3, 3, 3, 6, 9, 9)))
-    println(TwoPointers.removeDuplicates(intArrayOf(2, 2, 2, 11)))
+//    println(TwoPointers.removeDuplicates(intArrayOf(2, 3, 3, 3, 6, 9, 9)))
+//    println(TwoPointers.removeDuplicates(intArrayOf(2, 2, 2, 11)))
+    println(TwoPointers.removeElement(intArrayOf(3, 2, 3, 6, 3, 10, 9, 3), 3))
+    println(TwoPointers.removeElement(intArrayOf(2, 11, 2, 2, 1), 2))
 }
 
 
