@@ -232,5 +232,71 @@ object SlidingWindow {
         return resultIndices
     }
 
+    fun smallestSubstringWithGivenPattern(str: String, pattern: String): String {
+        var windowStart = 0
+        var matched = 0
+        var minLength = str.length + 1
+        var substringStart = 0
+        val patternFreqMap = HashMap<Char, Int>()
 
+        for (ch in pattern) patternFreqMap[ch] = patternFreqMap.getOrDefault(ch, 0) + 1
+
+        // try to extend the range [windowStart, windowEnd]
+        for (windowEnd in str.indices) {
+            val rightChar = str[windowEnd]
+
+            if (patternFreqMap.contains(rightChar)) {
+                patternFreqMap[rightChar] = patternFreqMap[rightChar]!! - 1
+                if (patternFreqMap[rightChar]!! >= 0) matched++
+            }
+
+            // shrink the window if we can, finish as soon as we remove a matched character
+            while (matched == pattern.length) {
+                if (minLength > windowEnd - windowStart + 1) {
+                    minLength = windowEnd - windowStart + 1
+                    substringStart = windowStart
+                }
+
+                val leftChar = str[windowStart++]
+                if (patternFreqMap.contains(leftChar)) {
+                    // note that we could have redundant matching characters, therefore we'll decrement the
+                    // matched count only when a useful occurrence of a matched character is going out of the window
+                    if (patternFreqMap[leftChar] == 0) matched--
+                    patternFreqMap[leftChar] = patternFreqMap[leftChar]!! + 1
+                }
+            }
+        }
+        return if (minLength > str.length) "" else str.substring(substringStart, substringStart + minLength)
+    }
+
+    fun wordConcatenation(str: String, words: Array<String>): List<Int> {
+        val wordFreq = HashMap<String, Int>()
+        val wordsCount = words.size
+        val wordLength = words[0].length
+        val resultIndices = mutableListOf<Int>()
+
+        for (word in words) wordFreq[word] = wordFreq.getOrDefault(word, 0) + 1
+
+        for (i in 0..(str.length - wordsCount * wordLength)) {
+            val seenWords = HashMap<String, Int>()
+
+            for (j in 0 until wordsCount) {
+                val nextWordIndex = i + j * wordLength
+                // get the next word from the string
+                val word = str.substring(nextWordIndex, nextWordIndex + wordLength)
+
+                // break if we don't need this word
+                if (!wordFreq.containsKey(word)) break
+
+                // add the word to the 'wordsSeen' map
+                seenWords[word] = seenWords.getOrDefault(word, 0) + 1
+
+                // no need to process further if the word has higher frequency than required
+                if (seenWords[word]!! > wordFreq.getOrDefault(word, 0)) break
+
+                if (j + 1 == wordsCount) resultIndices.add(i)
+            }
+        }
+        return resultIndices
+    }
 }
