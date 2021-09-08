@@ -20,20 +20,22 @@ fun main() {
 
 //    println(TwoPointers.removeDuplicates(intArrayOf(2, 3, 3, 3, 6, 9, 9)))
 //    println(TwoPointers.removeDuplicates(intArrayOf(2, 2, 2, 11)))
-    println(TwoPointers.removeElement(intArrayOf(3, 2, 3, 6, 3, 10, 9, 3), 3))
-    println(TwoPointers.removeElement(intArrayOf(2, 11, 2, 2, 1), 2))
+//    println(TwoPointers.removeElement(intArrayOf(3, 2, 3, 6, 3, 10, 9, 3), 3))
+//    println(TwoPointers.removeElement(intArrayOf(2, 11, 2, 2, 1), 2))
+    println(TwoPointers.sortedArraySquare(intArrayOf(-2, -1, 0, 2, 3)).toList())
+    println(TwoPointers.sortedArraySquare(intArrayOf(-3, -1, 0, 1, 2)).toList())
 }
 
 
-fun isDivisible(num: Int): Boolean{
-
-    fun isEven() = (num % 2) == 0
-    fun divisibleBy5() = (num % 5) == 0
-
-
-    return when {
-           isEven() -> true
-           divisibleBy5() -> false
-        else -> false
-    }
-}
+//fun isDivisible(num: Int): Boolean{
+//
+//    fun isEven() = (num % 2) == 0
+//    fun divisibleBy5() = (num % 5) == 0
+//
+//
+//    return when {
+//           isEven() -> true
+//           divisibleBy5() -> false
+//        else -> false
+//    }
+//}

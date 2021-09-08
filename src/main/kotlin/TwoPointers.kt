@@ -58,7 +58,29 @@ object TwoPointers {
                 nextElement++
             }
         }
-        println(arr.toList())
         return nextElement
     }
+
+    fun sortedArraySquare(arr: IntArray): IntArray {
+        val arrSize = arr.size
+        val result = IntArray(arrSize)
+        var arrLastIndex = arrSize - 1
+        var left = 0
+        var right = arr.size - 1
+
+        while (left <= right) {
+            val leftSquare = arr[left] * arr[left]
+            val rightSquare = arr[right] * arr[right]
+
+            if (leftSquare > rightSquare) {
+                result[arrLastIndex--] = leftSquare
+                left++
+            } else {
+                result[arrLastIndex--] = rightSquare
+                right--
+            }
+        }
+        return result
+    }
+
 }
