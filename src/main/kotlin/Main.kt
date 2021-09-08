@@ -22,8 +22,10 @@ fun main() {
 //    println(TwoPointers.removeDuplicates(intArrayOf(2, 2, 2, 11)))
 //    println(TwoPointers.removeElement(intArrayOf(3, 2, 3, 6, 3, 10, 9, 3), 3))
 //    println(TwoPointers.removeElement(intArrayOf(2, 11, 2, 2, 1), 2))
-    println(TwoPointers.sortedArraySquare(intArrayOf(-2, -1, 0, 2, 3)).toList())
-    println(TwoPointers.sortedArraySquare(intArrayOf(-3, -1, 0, 1, 2)).toList())
+//    println(TwoPointers.sortedArraySquare(intArrayOf(-2, -1, 0, 2, 3)).toList())
+//    println(TwoPointers.sortedArraySquare(intArrayOf(-3, -1, 0, 1, 2)).toList())
+    println(TwoPointers.tripleSumToZero(intArrayOf(-3, 0, 1, 2, -1, 1, -2)))
+    println(TwoPointers.tripleSumToZero(intArrayOf(-5, 2, -1, -2, 3)))
 }
 
 

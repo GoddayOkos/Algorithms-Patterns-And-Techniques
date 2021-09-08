@@ -66,7 +66,7 @@ object TwoPointers {
         val result = IntArray(arrSize)
         var arrLastIndex = arrSize - 1
         var left = 0
-        var right = arr.size - 1
+        var right = arrSize - 1
 
         while (left <= right) {
             val leftSquare = arr[left] * arr[left]
@@ -81,6 +81,34 @@ object TwoPointers {
             }
         }
         return result
+    }
+
+    fun tripleSumToZero(arr: IntArray): List<List<Int>> {
+        arr.sort()  // sort the given array
+        val triplet: MutableList<List<Int>> = mutableListOf()
+
+        for (i in 0 until arr.size - 2) {
+            if (i > 0 && arr[i] == arr[i - 1]) continue  // skip repeated elements
+            // search for pair whose sum == -arr[i]
+            searchPair(arr, -arr[i], i + 1, triplet)
+        }
+        return triplet
+    }
+
+    private fun searchPair(arr: IntArray, targetSum: Int, _left: Int, triplet: MutableList<List<Int>>) {
+        var left = _left
+        var right = arr.size - 1
+        while (left < right) {
+            val currentSum = arr[left] + arr[right]
+            if (currentSum == targetSum) { // found the triple
+               triplet.add(listOf(-targetSum, arr[left], arr[right]))
+                left++
+                right--
+                // skip repeated elements
+                while (left < right && arr[left] == arr[left - 1]) left++
+                while (left < right && arr[right] == arr[right + 1]) right--
+            } else if (targetSum > currentSum) left++ else right--
+        }
     }
 
 }
