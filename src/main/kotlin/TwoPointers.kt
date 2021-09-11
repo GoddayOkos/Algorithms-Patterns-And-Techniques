@@ -1,3 +1,5 @@
+import kotlin.math.*
+
 /**
  * All the functions in this singleton are related to using two pointers in
  * solving algorithms. In two pointers technique, the positions of the pointers
@@ -109,6 +111,40 @@ object TwoPointers {
                 while (left < right && arr[right] == arr[right + 1]) right--
             } else if (targetSum > currentSum) left++ else right--
         }
+    }
+
+    fun tripleSumCloseToTarget(arr: IntArray, target: Int): Int {
+        if (arr.size < 3) throw IllegalArgumentException("Input array size must be greater or equal to 3")
+
+        arr.sort()   // sorting is O(N * logN) operation
+        var smallestDiff = Int.MAX_VALUE
+        for (i in 0 until arr.size - 2) {
+           var left = i + 1
+           var right = arr.size - 1
+
+           while (left < right) {
+               // comparing the sum of three numbers to the target can cause overflow
+               // so, we will try to find a target difference
+               val targetDiff = target - arr[i] - arr[left] - arr[right]
+               if (targetDiff == 0) {  //  we've found a triplet with an exact sum
+                   return target - targetDiff  // So we return the sum of the 3 numbers
+               }
+
+               // the second part of the above 'if' is to handle the smallest sum when we have more than one solution
+                if (abs(targetDiff) < abs(smallestDiff) || abs(targetDiff)
+                    == abs(smallestDiff) && targetDiff > smallestDiff) {
+                    smallestDiff = targetDiff  // save the closest and the biggest difference
+                }
+
+               if (targetDiff > 0) {
+                   left++ // we need a triplet with a bigger sum
+               } else {
+                   right-- // we need a triplet with a smaller sum
+               }
+           }
+        }
+
+        return target - smallestDiff
     }
 
 }
