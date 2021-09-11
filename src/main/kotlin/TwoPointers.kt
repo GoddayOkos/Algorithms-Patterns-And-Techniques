@@ -147,4 +147,32 @@ object TwoPointers {
         return target - smallestDiff
     }
 
+    fun tripletWithSmallerSum(arr: IntArray, targetSum: Int): Int {
+        arr.sort()
+        var count = 0
+
+        for (i in 0 until arr.size - 2) {
+            count+= searchPairLessThanTarget(arr, targetSum - arr[i], i)
+        }
+        return count
+    }
+
+    private fun searchPairLessThanTarget(arr: IntArray, targetSum: Int, first: Int): Int {
+        var count = 0
+        var left = first + 1
+        var right = arr.lastIndex
+
+        while (left < right) {
+            if (arr[left] + arr[right] < targetSum) {  // found the triplet
+                // since arr[right] >= arr[left], therefore, we can replace arr[right] by any number between
+                // left and right to get a sum less than the target sum
+                count += right - left
+                left++
+            } else {
+                right--    // we need a pair with a smaller sum
+            }
+        }
+        return count
+    }
+
 }
