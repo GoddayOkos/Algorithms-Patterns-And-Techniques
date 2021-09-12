@@ -1,4 +1,7 @@
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.*
+
 
 /**
  * All the functions in this singleton are related to using two pointers in
@@ -175,4 +178,23 @@ object TwoPointers {
         return count
     }
 
+    fun subarrayProductLessThanK(arr: IntArray, target: Int): List<List<Int>> {
+        val result: MutableList<List<Int>> = arrayListOf()
+        var product = 1.0
+        var left = 0
+
+        for (i in arr.indices) {
+            product *= arr[i]
+            while (product >= target && left < arr.size) product /= arr[left++]
+            // since the product of all numbers from left to right is less than the target therefore,
+            // all subarrays from left to right will have a product less than the target too; to avoid
+            // duplicates, we will start with a subarray containing only arr[right] and then extend it
+            val tempList: MutableList<Int> = LinkedList()
+            for (j in i downTo left) {
+                tempList.add(0, arr[j])
+                result.add(ArrayList(tempList))
+            }
+        }
+        return result
+    }
 }

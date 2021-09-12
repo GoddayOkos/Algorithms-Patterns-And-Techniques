@@ -24,8 +24,8 @@ fun main() {
 //    println(TwoPointers.removeElement(intArrayOf(2, 11, 2, 2, 1), 2))
 //    println(TwoPointers.sortedArraySquare(intArrayOf(-2, -1, 0, 2, 3)).toList())
 //    println(TwoPointers.sortedArraySquare(intArrayOf(-3, -1, 0, 1, 2)).toList())
-    println(TwoPointers.tripletWithSmallerSum(intArrayOf(-1, 0, 2, 3), 3))
-    println(TwoPointers.tripletWithSmallerSum(intArrayOf(-1, 4, 2, 1, 3), 5))
+    println(TwoPointers.subarrayProductLessThanK(intArrayOf(2, 5, 3, 10 ), 30))
+    println(TwoPointers.subarrayProductLessThanK(intArrayOf(8, 2, 6, 5), 50))
 }
 
 
