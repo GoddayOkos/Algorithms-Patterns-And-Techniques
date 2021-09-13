@@ -197,4 +197,24 @@ object TwoPointers {
         }
         return result
     }
+
+    fun dutchFlag(arr: IntArray): IntArray {
+        var left = 0
+        var right = arr.lastIndex
+        var i = 0
+        while (i <= right) {
+            when (arr[i]) {
+                 0 -> { swap(arr, i, left); i++; left++ }
+                 1 -> i++
+                else -> { swap(arr, i, right); right-- }
+            }
+        }
+        return arr
+    }
+
+    private fun swap(arr: IntArray, i: Int, j: Int) {
+        val temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+    }
 }
