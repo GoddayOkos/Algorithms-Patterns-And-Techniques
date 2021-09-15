@@ -24,10 +24,10 @@ fun main() {
 //    println(TwoPointers.removeElement(intArrayOf(2, 11, 2, 2, 1), 2))
 //    println(TwoPointers.sortedArraySquare(intArrayOf(-2, -1, 0, 2, 3)).toList())
 //    println(TwoPointers.sortedArraySquare(intArrayOf(-3, -1, 0, 1, 2)).toList())
-    println(TwoPointers.backSpaceCompare("xy#z", "xzz#"))
-    println(TwoPointers.backSpaceCompare("xy#z", "xyz#"))
-    println(TwoPointers.backSpaceCompare("xp#", "xyz##"))
-    println(TwoPointers.backSpaceCompare("xywrrmp", "xywrrmu#p"))
+    println(TwoPointers.shortestWindowSort(intArrayOf(1, 2, 5, 3, 7, 10, 9, 12)))
+    println(TwoPointers.shortestWindowSort(intArrayOf(1, 3, 2, 0, -1, 7, 10)))
+    println(TwoPointers.shortestWindowSort(intArrayOf(1, 2, 3)))
+    println(TwoPointers.shortestWindowSort(intArrayOf(3, 2, 1)))
 }
 
 

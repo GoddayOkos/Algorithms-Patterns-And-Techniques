@@ -285,4 +285,32 @@ object TwoPointers {
         }
         return i
     }
+
+    fun shortestWindowSort(arr: IntArray): Int {
+        var low = 0
+        var high = arr.lastIndex
+
+        // find the first number out of sorting order from the beginning
+        while (low < arr.lastIndex && arr[low] <= arr[low + 1]) low++
+        if (low == arr.lastIndex) return 0   // if the array is sorted already
+
+        // find the first number out of sorting order from the end
+        while (high > 0 && arr[high] >= arr[high - 1]) high--
+
+        // Our subarray = [low, ..., high]
+        // Find the minimum and maximum of our subarray
+        var subarrayMax = Int.MIN_VALUE
+        var subarrayMin = Int.MAX_VALUE
+        for (i in low..high) {
+            subarrayMax = subarrayMax.coerceAtLeast(arr[i])
+            subarrayMin = subarrayMin.coerceAtMost(arr[i])
+        }
+
+        // extend the subarray to include any number which is bigger than the minimum of the subarray
+        while (low > 0 && arr[low - 1] > subarrayMin) low--
+        // extend the subarray to include any number which is smaller than the maximum of the subarray
+        while (high < arr.lastIndex && arr[high + 1] < subarrayMax) high++
+
+        return high - low + 1   // Return the size of our subarray
+    }
 }
