@@ -217,4 +217,37 @@ object TwoPointers {
         arr[i] = arr[j]
         arr[j] = temp
     }
+
+    fun quadrupleSumToTarget(arr: IntArray, target: Int): List<List<Int>> {
+        if (arr.size < 4) throw IllegalArgumentException("Array size must be greater or equal to 4")
+        arr.sort()
+
+        val result: MutableList<List<Int>> = mutableListOf()
+
+        for (i in 0..arr.size - 3) {
+            if (i > 0 && arr[i] == arr[i - 1]) continue  // Skip repeated number to avoid duplicate quadruples
+            for (j in (i + 1)..arr.size - 2) {
+                if (j > 1 && arr[j] == arr[j - 1]) continue  // Skip repeated number to avoid duplicate quadruples
+                searchQuad(arr, target, i, j, result)
+            }
+        }
+        return result
+    }
+
+    private fun searchQuad(arr: IntArray, target: Int, first: Int, second: Int, result: MutableList<List<Int>>) {
+        var left = second + 1
+        var right = arr.lastIndex
+
+        while (left < right) {
+            val currentSum = arr[first] + arr[second] + arr[left] + arr[right]
+            if (currentSum == target) {   // Found our quadruple
+                result.add(listOf(arr[first], arr[second], arr[left], arr[right]))
+                left++
+                right--
+                // Skip repeated elements
+                while (left < right && arr[left] == arr[left - 1]) left++
+                while (left < right && arr[right] == arr[right + 1]) right--
+            } else if (currentSum > target) right-- else left++
+        }
+    }
 }
