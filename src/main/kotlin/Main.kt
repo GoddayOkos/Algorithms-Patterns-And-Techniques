@@ -24,8 +24,10 @@ fun main() {
 //    println(TwoPointers.removeElement(intArrayOf(2, 11, 2, 2, 1), 2))
 //    println(TwoPointers.sortedArraySquare(intArrayOf(-2, -1, 0, 2, 3)).toList())
 //    println(TwoPointers.sortedArraySquare(intArrayOf(-3, -1, 0, 1, 2)).toList())
-    println(TwoPointers.quadrupleSumToTarget(intArrayOf(4, 1, 2, -1, 1, -3), 1))
-    println(TwoPointers.quadrupleSumToTarget(intArrayOf(2, 0, -1, 1, -2, 2), 2))
+    println(TwoPointers.backSpaceCompare("xy#z", "xzz#"))
+    println(TwoPointers.backSpaceCompare("xy#z", "xyz#"))
+    println(TwoPointers.backSpaceCompare("xp#", "xyz##"))
+    println(TwoPointers.backSpaceCompare("xywrrmp", "xywrrmu#p"))
 }
 
 

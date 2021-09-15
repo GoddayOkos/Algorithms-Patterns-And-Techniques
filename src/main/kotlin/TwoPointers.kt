@@ -250,4 +250,39 @@ object TwoPointers {
             } else if (currentSum > target) right-- else left++
         }
     }
+
+    fun backSpaceCompare(str1: String, str2: String): Boolean {
+        // use two pointer approach to compare the strings
+        var index1 = str1.lastIndex
+        var index2 = str2.lastIndex
+
+        while (index1 >= 0 || index2 >= 0) {
+            val i1 = getNextValidCharIndex(str1, index1)
+            val i2 = getNextValidCharIndex(str2, index2)
+
+            if (i1 < 0 && i2 < 0) return true   // Reached the end of both strings
+            if (i1 < 0 || i2 < 0) return false  // Reached the end of one of the strings
+            if (str1[i1] != str2[i2]) return false  // Check if the characters are the same
+
+            index1 = i1 - 1
+            index2 = i2 - 1
+        }
+        return true
+    }
+
+    private fun getNextValidCharIndex(str: String, index: Int): Int {
+        var backSpaceCount = 0
+        var i = index
+
+        while (i >= 0) {
+            if (str[i] == '#') {
+                backSpaceCount++   // Found a backspace
+            } else if (backSpaceCount > 0) {  // a non-backspace character
+                backSpaceCount--
+            } else break
+
+            i--  // skip a backspace or a valid character
+        }
+        return i
+    }
 }
