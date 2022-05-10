@@ -227,7 +227,7 @@ object TwoPointers {
         for (i in 0..arr.size - 3) {
             if (i > 0 && arr[i] == arr[i - 1]) continue  // Skip repeated number to avoid duplicate quadruples
             for (j in (i + 1)..arr.size - 2) {
-                if (j > 1 && arr[j] == arr[j - 1]) continue  // Skip repeated number to avoid duplicate quadruples
+                if (j > i + 1 && arr[j] == arr[j - 1]) continue  // Skip repeated number to avoid duplicate quadruples
                 searchQuad(arr, target, i, j, result)
             }
         }

@@ -1,4 +1,3 @@
-
 object SlidingWindow {
 
     fun averageOfSubArrayOfSizeK(k: Int, arr: IntArray): DoubleArray {
@@ -298,5 +297,56 @@ object SlidingWindow {
             }
         }
         return resultIndices
+    }
+
+//    fun solution(arr: IntArray): Int {
+//        var count = 0
+//        var sum = 0
+//        for (i in arr.indices) {
+//            sum += i
+//            if (sum == 0) count++
+//            for (j in i..arr.lastIndex) {
+//                sum += arr[j]
+//                if (sum == 0) count++
+//            }
+//        }
+//        return if (count > 0) count else -1
+//    }
+
+    fun solution(arr: IntArray): Int {
+        val map = HashMap<Int, Int>()
+        map[0] = 1
+        var psum = 0
+        var ans = 0
+        for (i in arr.indices) {
+            psum += arr[i]
+            if (map.containsKey(psum)) {
+                ans += map[psum]!!
+            }
+            map[psum] = map.getOrDefault(psum, 0) + 1
+        }
+        return if (ans >= 1_000_000) -1 else ans
+    }
+
+    fun count(a: String, b: String, m: Int, n: Int): Int {
+        // If both first and second string is empty,
+        // or if second string is empty, return 1
+        if (m == 0 && n == 0 || n == 0) return 1
+
+        // If only first string is empty and
+        // second string is not empty, return 0
+        if (m == 0) return 0
+
+        // If last characters are same
+        // Recur for remaining strings by
+        // 1. considering last characters of
+        // both strings
+        // 2. ignoring last character of
+        // first string
+        return if (a[m - 1] == b[n - 1]) count(a, b, m - 1, n - 1) +
+                count(a, b, m - 1, n) else  // If last characters are different,
+        // ignore last char of first string
+        // and recur for  remaining string
+            count(a, b, m - 1, n)
     }
 }
